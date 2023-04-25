@@ -17,7 +17,13 @@ module.exports = {
           600: '#E0A171',
           'std': '#C45100',
         },
+        salmon:{
+          500: '#FC8585'
+        }
      },
+     backgroundImage: {
+      'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+    }
    },
 
 },
