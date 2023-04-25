@@ -1,33 +1,21 @@
-.mb-0 {
-  margin-bottom: 0px
-}
-
-.ml-auto {
-  margin-left: auto
-}
-
-.mr-auto {
-  margin-right: auto
-}
-
-.mt-0 {
-  margin-top: 0px
-}
-
-.mt-auto {
-  margin-top: auto
+.mt-10 {
+  margin-top: 2.5rem
 }
 
 .flex {
   display: flex
 }
 
+.h-full {
+  height: 100%
+}
+
 .h-screen {
   height: 100vh
 }
 
-.h-full {
-  height: 100%
+.w-full {
+  width: 100%
 }
 
 .items-center {
@@ -42,27 +30,9 @@
   border-radius: 0.375rem
 }
 
-.rounded {
-  border-radius: 0.25rem
-}
-
-.rounded-full {
-  border-radius: 9999px
-}
-
 .bg-primary-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(252 242 226 / var(--tw-bg-opacity))
-}
-
-.bg-blue-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(59 130 246 / var(--tw-bg-opacity))
-}
-
-.bg-blue-50 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(239 246 255 / var(--tw-bg-opacity))
 }
 
 .bg-primary-std {
@@ -74,23 +44,25 @@
   padding: 0.5rem
 }
 
-.font-bold {
-  font-weight: 700
+.pt-2 {
+  padding-top: 0.5rem
 }
 
-.text-blue-600 {
-  --tw-text-opacity: 1;
-  color: rgb(37 99 235 / var(--tw-text-opacity))
+.text-center {
+  text-align: center
 }
 
-.text-white {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity))
+.font-display {
+  font-family: Poppins
 }
 
-.text-black {
-  --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity))
+.font-title {
+  font-family: Slackey
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem
 }
 
 .text-slate-50 {
