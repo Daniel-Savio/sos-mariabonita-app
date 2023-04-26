@@ -17,6 +17,7 @@ export default function App() {
       try {
         await Font.loadAsync({
           'Poppins': require('./assets/fonts/Poppins-Regular.ttf'),
+          'Poppins-Bold': require('./assets/fonts/Poppins-Bold.ttf'),
           'Slackey': require('./assets/fonts/Slackey-Regular.ttf')
       });
        
