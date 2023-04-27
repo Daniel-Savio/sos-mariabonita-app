@@ -18,6 +18,7 @@ import tw from "../../../tailwind";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { CaretLeft } from "phosphor-react-native";
 import * as SQlite from "expo-sqlite";
+import * as SMS from 'expo-sms';
 
 export const Home = () => {
   //? Database
@@ -76,10 +77,12 @@ export const Home = () => {
   };
 
   //? Drops the table contacts
-  const dropTable = () => {
+  const deleteTable = () => {
+    setContacts([])
     db.transaction((tx) => {
-      tx.executeSql(`DROP TABLE contacts;`);
+      tx.executeSql(`DELETE FROM contacts;`);
     });
+    console.log(contacts)
   };
 
   //? Refresh
@@ -91,6 +94,16 @@ export const Home = () => {
       setRefreshing(false);
     }, 2000);
   }, []);
+
+  //? SMS
+  const sendMessage = ()=> {
+    let toContacts= []
+    contacts.forEach((contact)=>{
+      toContacts.push(contact.Phone);
+    })
+    console.log(toContacts)
+    SMS.sendSMSAsync(toContacts, "SOCORRO eu estou a mais de 12h seguidas programando isso me ajude")
+  }
 
   //? Animation
   const scale = useRef(new Animated.Value(1)).current; //? Initial Value for the property
@@ -122,7 +135,7 @@ export const Home = () => {
 
       <View style={tw`h-screen flex items-center justify-center`}>
         {/* Botão de SOS */}
-        <Pressable onPress={dropTable}>
+        <Pressable onPress={sendMessage}>
           <View style={tw`relative h-48 w-54`}>
             <Animated.Image
               style={[tw`absolute inset-0 z-10`, { transform: [{ scale }] }]}
@@ -182,6 +195,14 @@ export const Home = () => {
             >
               <Text style={tw`text-slate-50 text-center font-display`}>
                 Cadastrar contato
+              </Text>
+            </Pressable>
+            <Pressable
+              style={tw`rounded-md bg-primary-std p-2 m-auto w-48 mt-5`}
+              onPress={deleteTable}
+            >
+              <Text style={tw`text-slate-50 text-center font-display`}>
+                Deletar contatos
               </Text>
             </Pressable>
           </View>

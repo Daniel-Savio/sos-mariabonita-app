@@ -19,15 +19,16 @@
     "expo-app-loading": "^2.1.1",
     "expo-font": "~11.1.1",
     "expo-sms": "~11.2.1",
+    "expo-sqlite": "~11.1.1",
     "expo-status-bar": "~1.4.4",
     "phosphor-react-native": "^1.1.2",
     "react": "18.2.0",
     "react-native": "0.71.6",
+    "react-native-sms": "^1.11.0",
     "react-native-svg": "13.4.0",
     "react-native-web": "~0.18.10",
     "tailwind-rn": "^4.2.0",
-    "twrnc": "^3.6.0",
-    "expo-sqlite": "~11.1.1"
+    "twrnc": "^3.6.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
