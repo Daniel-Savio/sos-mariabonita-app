@@ -8,20 +8,89 @@ import {
   ActivityIndicator,
   TextInput,
   ImageBackground,
+  FlatList,
+  ScrollView,
+  RefreshControl,
 } from "react-native";
 import { Header } from "../../components/header";
+import { ContactItem } from "../../components/contactItem";
 import tw from "../../../tailwind";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { CaretLeft } from "phosphor-react-native";
 import * as SQlite from "expo-sqlite";
 
 export const Home = () => {
-  //?Database
+  //? Database
   const db = SQlite.openDatabase("database");
   let [isLoading, setIsLoading] = useState("");
-  let [names, setNames] = useState([]);
+  let [contacts, setContacts] = useState([]);
+  let [currentName, setCurrentName] = useState("");
+  let [currentPhone, setCurrentPhone] = useState("");
 
-  
+  //? Create and select all rows from the database
+  useEffect(() => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        `CREATE TABLE IF NOT EXIST "contacts"(
+        "id"	INTEGER,
+        "Name"	TEXT NOT NULL,
+        "Phone"	TEXT,
+        PRIMARY KEY("id" AUTOINCREMENT)
+      );`
+      );
+    });
+
+    db.transaction((tx) => {
+      tx.executeSql("SELECT * FROM contacts", null, (txObj, resultSet) => {
+        setContacts(resultSet.rows._array);
+      });
+    });
+
+    setIsLoading("hidden");
+  }, []);
+
+  //? Add contact
+  const addContact = () => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        `INSERT INTO contacts (Name, Phone) VALUES ("${currentName}", "${currentPhone}");`,
+        null,
+        (txObj, resultSet) => {
+          let existingContacts = [...contacts];
+
+          existingContacts.push({
+            Name: currentName,
+            Phone: currentPhone,
+            id: resultSet.insertId
+          });
+
+          setContacts(existingContacts);
+          console.log(contacts);
+          setCurrentName("")
+          setCurrentPhone("")
+
+        }
+      );
+    });
+    
+  };
+
+  //? Drops the table contacts
+  const dropTable = () => {
+    db.transaction((tx) => {
+      tx.executeSql(`DROP TABLE contacts;`);
+    });
+  };
+
+  //? Refresh
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
 
   //? Animation
   const scale = useRef(new Animated.Value(1)).current; //? Initial Value for the property
@@ -53,19 +122,12 @@ export const Home = () => {
 
       <View style={tw`h-screen flex items-center justify-center`}>
         {/* Botão de SOS */}
-        <Pressable
-          onPress={() => {
-            Alert.alert("Eu sou um alerta");
-          }}
-        >
+        <Pressable onPress={dropTable}>
           <View style={tw`relative h-48 w-54`}>
             <Animated.Image
               style={[tw`absolute inset-0 z-10`, { transform: [{ scale }] }]}
               source={require("../../assets/Botao_Pulsante.png")}
             />
-            {/* <Animated.View
-              style={tw`absolute -top-4 right-2 h-52 w-52 rounded-full border-salmon-500 border-4 z-0`}
-            /> */}
           </View>
         </Pressable>
 
@@ -101,21 +163,29 @@ export const Home = () => {
             <TextInput
               style={tw`h-10 mb-4 w-full border-b-2 border-primary-std`}
               placeholder="Nome"
+              value={currentName}
+              cursorColor={"#FC8585"}
+              onChangeText={setCurrentName}
             ></TextInput>
+
             <TextInput
               style={tw`h-10 mb-4 w-full border-b-2 border-primary-std`}
               placeholder="Telefone"
+              value={currentPhone}
+              cursorColor={"#FC8585"}
+              onChangeText={setCurrentPhone}
             ></TextInput>
 
             <Pressable
               style={tw`rounded-md bg-primary-std p-2 m-auto w-48 mt-5`}
+              onPress={addContact}
             >
               <Text style={tw`text-slate-50 text-center font-display`}>
                 Cadastrar contato
               </Text>
             </Pressable>
           </View>
-          <View style={tw`flex pl-2 pr-2 h-32 mb-5 mt-5`}>
+          <View style={tw`flex pl-2 pr-2  mb-5 mt-5`}>
             <Text style={tw`font-display-bold text-primary-std text-xl `}>
               Contatos salvos
             </Text>
@@ -124,6 +194,17 @@ export const Home = () => {
               style={tw`${isLoading}`}
               size="small"
               color="#FC8585"
+            />
+            <FlatList
+              refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+              }
+              data={contacts}
+              extraData={contacts}
+              renderItem={({ item }) => (
+                <ContactItem name={item.Name} phone={item.Phone} />
+              )}
+              keyExtractor={(item) => item.id}
             />
           </View>
         </View>
