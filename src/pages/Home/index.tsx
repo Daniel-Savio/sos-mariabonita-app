@@ -31,7 +31,7 @@ export const Home = () => {
   useEffect(() => {
     db.transaction((tx) => {
       tx.executeSql(
-        `CREATE TABLE IF NOT EXIST "contacts"(
+        `CREATE TABLE IF NOT EXISTS "contacts"(
         "id"	INTEGER,
         "Name"	TEXT NOT NULL,
         "Phone"	TEXT,
