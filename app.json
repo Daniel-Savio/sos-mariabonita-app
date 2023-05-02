@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "SOS-MariaBonita",
-    "slug": "SOS-MariaBonita",
+    "name": "SOS - Maria Bonita",
+    "slug": "sos-maria-bonita",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -11,13 +11,18 @@
       "resizeMode": "cover",
       "backgroundColor": "#FCF2E2"
     },
+    "updates": {
+      "fallBackToCacheTimeouts": 0
+    },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": false
+      "supportsTablet": false,
+      "bundleIdentifier": "com.mariabonita.org"
     },
     "android": {
+      "package": "com.mariabonita.org",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FCF2E2"
@@ -25,6 +30,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "e360aa74-16d5-46c5-98fd-6020c6237ac6"
+      }
     }
   }
 }

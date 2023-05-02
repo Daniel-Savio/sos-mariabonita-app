@@ -11,6 +11,7 @@ import {
   FlatList,
   ScrollView,
   RefreshControl,
+  StatusBar,
 } from "react-native";
 import { Header } from "../../components/header";
 import { ContactItem } from "../../components/contactItem";
@@ -131,6 +132,10 @@ export const Home = () => {
       source={require("../../../assets/bg.png")}
       style={tw`h-full flex  w-full`}
     >
+      <StatusBar
+        animated={false}
+        backgroundColor="#C45100"
+      />
       <Header title={"SOS - Maria Bonita"} />
 
       <View style={tw`h-screen flex items-center justify-center`}>
