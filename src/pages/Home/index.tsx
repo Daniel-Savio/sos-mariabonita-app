@@ -19,9 +19,25 @@ import tw from "../../../tailwind";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { CaretLeft } from "phosphor-react-native";
 import * as SQlite from "expo-sqlite";
-import * as SMS from 'expo-sms';
+import * as SMS from "expo-sms";
+
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 
 export const Home = () => {
+  //?Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyDqYiP1eNXCI1bU0GwbDdXpumPkerXU-NM",
+    authDomain: "sos-mariabonita-a2824.firebaseapp.com",
+    projectId: "sos-mariabonita-a2824",
+    storageBucket: "sos-mariabonita-a2824.appspot.com",
+    messagingSenderId: "812921973728",
+    appId: "1:812921973728:web:814996430dede1da7f5985",
+    measurementId: "G-QYS5MSKQQF",
+  };
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+
   //? Database
   const db = SQlite.openDatabase("database");
   let [isLoading, setIsLoading] = useState("");
@@ -63,27 +79,25 @@ export const Home = () => {
           existingContacts.push({
             Name: currentName,
             Phone: currentPhone,
-            id: resultSet.insertId
+            id: resultSet.insertId,
           });
 
           setContacts(existingContacts);
           console.log(contacts);
-          setCurrentName("")
-          setCurrentPhone("")
-
+          setCurrentName("");
+          setCurrentPhone("");
         }
       );
     });
-    
   };
 
   //? Drops the table contacts
   const deleteTable = () => {
-    setContacts([])
+    setContacts([]);
     db.transaction((tx) => {
       tx.executeSql(`DELETE FROM contacts;`);
     });
-    console.log(contacts)
+    console.log(contacts);
   };
 
   //? Refresh
@@ -97,14 +111,17 @@ export const Home = () => {
   }, []);
 
   //? SMS
-  const sendMessage = ()=> {
-    let toContacts= []
-    contacts.forEach((contact)=>{
+  const sendMessage = () => {
+    let toContacts = [];
+    contacts.forEach((contact) => {
       toContacts.push(contact.Phone);
-    })
-    console.log(toContacts)
-    SMS.sendSMSAsync(toContacts, "SOCORRO eu estou a mais de 12h seguidas programando isso me ajude")
-  }
+    });
+    console.log(toContacts);
+    SMS.sendSMSAsync(
+      toContacts,
+      "SOCORRO eu estou a mais de 12h seguidas programando isso me ajude"
+    );
+  };
 
   //? Animation
   const scale = useRef(new Animated.Value(1)).current; //? Initial Value for the property
@@ -132,10 +149,7 @@ export const Home = () => {
       source={require("../../../assets/bg.png")}
       style={tw`h-full flex  w-full`}
     >
-      <StatusBar
-        animated={false}
-        backgroundColor="#C45100"
-      />
+      <StatusBar animated={false} backgroundColor="#C45100" />
       <Header title={"SOS - Maria Bonita"} />
 
       <View style={tw`h-screen flex items-center justify-center`}>
