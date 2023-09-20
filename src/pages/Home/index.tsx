@@ -21,22 +21,10 @@ import { CaretLeft } from "phosphor-react-native";
 import * as SQlite from "expo-sqlite";
 import * as SMS from "expo-sms";
 
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+
 
 export const Home = () => {
-  //?Firebase
-  const firebaseConfig = {
-    apiKey: "AIzaSyDqYiP1eNXCI1bU0GwbDdXpumPkerXU-NM",
-    authDomain: "sos-mariabonita-a2824.firebaseapp.com",
-    projectId: "sos-mariabonita-a2824",
-    storageBucket: "sos-mariabonita-a2824.appspot.com",
-    messagingSenderId: "812921973728",
-    appId: "1:812921973728:web:814996430dede1da7f5985",
-    measurementId: "G-QYS5MSKQQF",
-  };
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
+ 
 
   //? Database
   const db = SQlite.openDatabase("database");

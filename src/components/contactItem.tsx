@@ -1,5 +1,4 @@
 import { View, Text } from 'react-native'
-import React from 'react'
 import { Phone } from 'phosphor-react-native'
 import tw from '../../tailwind'
 

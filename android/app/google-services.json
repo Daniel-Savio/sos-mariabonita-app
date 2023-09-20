@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "662775396971",
+    "project_id": "sos-mariabonita-app",
+    "storage_bucket": "sos-mariabonita-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662775396971:android:eba9f80551168e80bc8f2e",
+        "android_client_info": {
+          "package_name": "com.mariabonita.org"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC45wh0D2ruFjUmDgfzm60hScKE3bkYqrg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
